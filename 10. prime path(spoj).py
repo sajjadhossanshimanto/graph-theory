@@ -2,6 +2,8 @@
 TODO: how do i determined witch prime function to use.
 to me it was a hard question
 '''
+#%%
+from store_graph import G, draw_graph
 
 #%%
 n = 9999
@@ -19,7 +21,9 @@ adj = [[] for _ in range(n+1)]
 primes = []
 def build_graph():
     for i in range(1000, n+1):
-        if isPrime(i): primes.append(i)
+        if isPrime(i):
+            primes.append(i)
+            G.add_node(i)
 
     for i in range(len(primes)):
         for j in range(i+1, len(primes)):
@@ -29,7 +33,10 @@ def build_graph():
                 adj[a].append(b)
                 adj[b].append(a)
                 
+                G.add_edge(a, b)
 
+build_graph()
+draw_graph()
 #%%
 dis = [0]*(n+1)
 def bfs(node):
