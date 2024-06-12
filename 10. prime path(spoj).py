@@ -1,4 +1,5 @@
 '''
+practise proablem from spoj
 TODO: how do i determined witch prime function to use.
 to me it was a hard question
 '''
