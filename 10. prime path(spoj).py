@@ -23,9 +23,12 @@ def build_graph():
 
     for i in range(len(primes)):
         for j in range(i+1, len(primes)):
-            if isValid(i, j):
-                adj[i].append(j)
-                adj[j].append(i)
+            a = primes[i]
+            b = primes[j]
+            if isValid(a, b):
+                adj[a].append(b)
+                adj[b].append(a)
+                
 
 #%%
 dis = [0]*(n+1)
