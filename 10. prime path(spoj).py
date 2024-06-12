@@ -10,6 +10,7 @@ def isValid(a, b):
     return len(list(filter(lambda x:x[0]==x[1], zip(str(a), str(b)))))==1
 
 def isPrime(num):
+    if num&1==0: return False
     for i in range(2, int(num**.5)):
         if num%i==0: return False
     return True
