@@ -4,6 +4,7 @@ to me it was a hard question
 '''
 #%%
 from store_graph import G, draw_graph
+from collections import deque
 
 #%%
 n = 9999
@@ -36,9 +37,24 @@ def build_graph():
                 G.add_edge(a, b)
 
 build_graph()
+#%%
 draw_graph()
 #%%
 dis = [0]*(n+1)
+visit = [0]*(n+1)
 def bfs(node):
-    pass
-
+    visit[node] = 1
+    queue = deque([node])
+    level = 1
+    while queue:
+        node=queue.popleft()
+        for child in adj[node]:
+            if visit[child]: continue
+            
+            visit[child] = 1
+            queue.append(child)
+            dis[child]=level
+        level+=1
+#%%
+a, b = map(int, input().split(" "))
+print(abs(dis[b]-dis[a]))
