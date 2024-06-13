@@ -29,11 +29,11 @@ def dfs(node, parent, time=1):
         if visit[child]:
             if child == parent: continue
             else: # back edge
-                low_time[child] = min(low_time[node], in_time[child])
+                low_time[node] = min(low_time[node], in_time[child])
         else:# normal edge
             time+=1
             dfs(child, node, time)
-            if low_time[child]<low_time[node]:
+            if low_time[child]<=low_time[node]:
                 # backtracked from back edge
                 low_time[node]=low_time[child]
             else:
