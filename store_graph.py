@@ -35,14 +35,18 @@ def graph_input(inp, n, indexed=1) -> defaultdict:
 
 pos = None
 def draw_graph(cache=True, seed=None):
-    ''' use `cache=False` to forcefully redraw '''
+    ''' 
+    - use `cache=False` to forcefully redraw 
+    ~ - if you use `seed must enable redrawing`
+    '''
     # subax1 = plt.subplot(121)
     global pos
-    
-    if not seed:
+
+    if (not cache) or (not pos):
         seed = randint(1000, 9999)
         print(f"seed = {seed}")
-    if (not pos) or (not cache):
+        pos = nx.drawing.spring_layout(G, seed=seed)
+    elif seed:
         pos = nx.drawing.spring_layout(G, seed=seed)
 
     nx.draw(G, pos, with_labels=True, font_weight='bold')
