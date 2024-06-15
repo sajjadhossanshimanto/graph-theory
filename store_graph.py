@@ -42,11 +42,11 @@ def draw_graph(cache=True, seed=None):
     # subax1 = plt.subplot(121)
     global pos
 
-    if (not cache) or (not pos):
+    if seed:
+        pos = nx.drawing.spring_layout(G, seed=seed)
+    elif (not cache) or (not pos):
         seed = randint(1000, 9999)
         print(f"seed = {seed}")
-        pos = nx.drawing.spring_layout(G, seed=seed)
-    elif seed:
         pos = nx.drawing.spring_layout(G, seed=seed)
 
     nx.draw(G, pos, with_labels=True, font_weight='bold')
