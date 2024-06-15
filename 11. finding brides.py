@@ -1,5 +1,7 @@
 '''
 new concept: Low time
+main purpose of low time is to find whos are connected in the same sub graph
+[`yt ref`](https://www.youtube.com/watch?v=64KK9K4RpKE) -> 11:00 min
 '''
 #%%
 from store_graph import graph_input, draw_graph
