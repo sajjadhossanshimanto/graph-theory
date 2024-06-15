@@ -36,6 +36,7 @@ visit = defaultdict(lambda : 0)
 in_time = defaultdict(lambda : 0)
 low_time = defaultdict(lambda : 0)
 
+ap = set()
 def dfs(node, parent, timer=1):
     visit[node] = 1
     in_time[node] = timer
@@ -51,11 +52,18 @@ def dfs(node, parent, timer=1):
             low_time[node] = min(low_time[node], low_time[child])
             # if in_time[node]>low_time[child]:
             #     # no back connection
-            if not low_time[child]<in_time[node]:
-                ''' if low time is of child less than or equal to root 
-                then that means this clind is forming another subtset of graph
+            if (not low_time[child]<in_time[node]) and 1:
                 '''
-                print(f"articulation point {node}")
+                - if low time is of child less than or equal to root 
+                then that means this clind is forming another subtset of graph
+                - same node can be ap for 2 different sub graph (look at node 7)
+                '''
+                ap.add(node)
+            
+def find_ap():
+    for node in ap:
+        print(f"articulation point {node}")
+    
 #%%
 
 
