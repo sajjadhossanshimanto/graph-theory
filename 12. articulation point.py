@@ -61,6 +61,13 @@ def dfs(node, parent, timer=1):
                 ap.add(node)
             
 def find_ap():
+    cc = 0
+    for i in adj:
+        if visit[i]: continue
+        dfs(i)
+        cc+=1
+
+    print(f'total cc = {cc}')
     for node in ap:
         print(f"articulation point {node}")
     
