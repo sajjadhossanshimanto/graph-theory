@@ -1,4 +1,4 @@
-from demo_graph import n, inp
+from collections import defaultdict
 
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -12,12 +12,13 @@ import networkx as nx
 # print(graph_list)
 
 G = nx.Graph()
-def graph_input(inp, n, indexed=1):
+def graph_input(inp, n, indexed=1) -> defaultdict:
     '''
     eighter 'Zero indexed or 'One' indexed
     '''
     G.clear()
-    graph_list = [[] for i in range(n+indexed)]
+    # TODO: build with defaultdict
+    graph_list = defaultdict(list)
     for i in range(n+indexed): G.add_node(i)
 
     for line in inp.split("\n"):

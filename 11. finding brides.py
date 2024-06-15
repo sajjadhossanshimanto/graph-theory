@@ -4,6 +4,8 @@ main purpose of low time is to find whos are connected in the same sub graph
 [`yt ref`](https://www.youtube.com/watch?v=64KK9K4RpKE) -> 11:00 min
 '''
 #%%
+from collections import defaultdict
+
 from store_graph import graph_input, draw_graph
 
 
@@ -38,9 +40,9 @@ inp = '''
 adj = graph_input(inp, n)
 
 #%%
-visit = [0]*(n+1)
-in_time = [0]*(n+1)
-low_time = [0]*(n+1)
+visit = defaultdict(lambda : 0)
+in_time = defaultdict(lambda : 0)
+low_time = defaultdict(lambda : 0)
 def dfs(node, parent, time=1):
     visit[node]=1
     in_time[node] = time
