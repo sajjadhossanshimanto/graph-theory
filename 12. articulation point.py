@@ -30,7 +30,7 @@ inp = '''
 '''
 
 adj = graph_input(inp, n)
-draw_graph()
+draw_graph(seed=6715)
 #%%
 visit = defaultdict(lambda : 0)
 in_time = defaultdict(lambda : 0)
@@ -51,7 +51,10 @@ def dfs(node, parent, timer=1):
             low_time[node] = min(low_time[node], low_time[child])
             # if in_time[node]>low_time[child]:
             #     # no back connection
-            if not in_time[node]<low_time[child]:# articulation point
+            if not low_time[child]<in_time[node]:
+                ''' if low time is of child less than or equal to root 
+                then that means this clind is forming another subtset of graph
+                '''
                 print(f"articulation point {node}")
 #%%
 
