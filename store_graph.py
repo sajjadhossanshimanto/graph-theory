@@ -1,4 +1,5 @@
 from collections import defaultdict
+from random import randint
 
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -32,9 +33,19 @@ def graph_input(inp, n, indexed=1) -> defaultdict:
 
     return graph_list
 
-def draw_graph():
+pos = None
+def draw_graph(cache=True, seed=None):
+    ''' use `cache=False` to forcefully redraw '''
     # subax1 = plt.subplot(121)
-    nx.draw(G, with_labels=True, font_weight='bold')
+    global pos
+    
+    if not seed:
+        seed = randint(1000, 9999)
+        print(f"seed = {seed}")
+    if (not pos) or (not cache):
+        pos = nx.drawing.spring_layout(G, seed=seed)
+
+    nx.draw(G, pos, with_labels=True, font_weight='bold')
     plt.show()
 
 
