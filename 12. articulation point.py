@@ -42,16 +42,16 @@ def dfs(node, parent, timer=1):
     low_time[node] = timer
     for child in adj[node]:
         if child == parent: continue
-        if visit:# back edge
+        if visit[child]:# back edge
 #                                in_time[child] # what should i do
             low_time[node] = min(low_time[child], low_time[node])
         else:
             timer+=1
             dfs(child, node, timer)
+            low_time[node] = min(low_time[node], low_time[child])
             # if in_time[node]>low_time[child]:
             #     # no back connection
-            if not in_time[node]>low_time[child]:# articulation point
-                low_time[node] = min(low_time[node], low_time[child])
+            if not in_time[node]<low_time[child]:# articulation point
                 print(f"articulation point {node}")
 #%%
 
