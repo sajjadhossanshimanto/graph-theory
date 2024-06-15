@@ -46,10 +46,9 @@ def dfs(node, parent, time=1):
     
     for child in adj[node]:
         # 3 posibilities 
-        if visit[child]:
-            if child == parent: continue
-            else: # back edge
-                low_time[node] = min(low_time[node], in_time[child])
+        if child == parent: continue
+        if visit[child]:# back edge
+            low_time[node] = min(low_time[node], in_time[child])
         else:# normal edge
             time+=1
             dfs(child, node, time)
