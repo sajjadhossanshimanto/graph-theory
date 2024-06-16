@@ -11,15 +11,15 @@ from store_graph import print_grid
 
 
 #%%
-# row, col = (3, 3)
+row, col = (3, 3)
 def is_valid(x, y):
-    if x<0 or y<0 or x>=3 or y>=3:
+    if x<0 or y<0 or x>=row or y>=col:
         return False
     return True
 #              up,    right,   down,    left
 # grid system is totally oposit of what we lean in school
 movement = [(-1, 0), (0, +1), (+1, 0), (0, -1)]
-visit = [[0]*3 for i in range(3)]
+visit = [[0]*row for i in range(col)]
 def dfs(x, y):
     visit[x][y] = 1
     print_grid(visit)
