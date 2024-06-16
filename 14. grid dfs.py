@@ -1,10 +1,10 @@
 '''
 grid action -> (up, right, down, left)
------------->(increasing x)
+------------>(increasing Y)
 |
 |
 |
-(increasing y)
+(increasing X)
 '''
 #%%
 from store_graph import print_grid
@@ -26,7 +26,12 @@ def dfs(x, y):
     for adx, ady in movement:
         cx = x+adx
         cy = y+ady
-        if is_valid(cx, cy): dfs(cx, cy)
-
+        if not is_valid(cx, cy): continue
+        # if pos is not valid can't even check for visit or not
+        
+        if visit[cx][cy]: continue
+        dfs(cx, cy)
+ 
 # %%
 dfs(0, 0)
+# %%
