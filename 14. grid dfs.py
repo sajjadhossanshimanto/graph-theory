@@ -30,12 +30,12 @@ def dfs(x, y):
     print(grid[x][y])
     print_grid(visit)
     for adx, ady in movement:
-        cx = x+adx
-        cy = y+ady
-        if not is_valid(cx, cy): continue
+        cx = x+adx# child_x
+        cy = y+ady# child_y
+        if (not is_valid(cx, cy)) or visit[cx][cy]: continue
         # if pos is not valid can't even check for visit or not
         
-        if visit[cx][cy]: continue
+        # if : continue# python's or is smart
         dfs(cx, cy)
  
 # %%
