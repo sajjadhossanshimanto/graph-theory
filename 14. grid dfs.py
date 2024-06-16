@@ -1,5 +1,5 @@
 '''
-drid action -> (up, right, down, left)
+grid action -> (up, right, down, left)
 ------------>(increasing x)
 |
 |
@@ -17,10 +17,11 @@ def is_valid(x, y):
         return False
     return True
 #              up,    right,   down,    left
+movement = [(0, -1), (+1, 0), (0, +1), (-1, 0)]
 visit = [[0]*3 for i in range(3)]
 def dfs(x, y):
     visit[x][y] = 1
-    print(visit)
+    print_grid(visit)
     for adx, ady in movement:
         cx = x+adx
         cy = y+ady
