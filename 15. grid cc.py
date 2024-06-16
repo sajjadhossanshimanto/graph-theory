@@ -13,7 +13,7 @@ grid = [
 movement = [(-1, 0), (0, +1), (+1, 0), (0, -1)]
 #%%
 def is_valid(x, y):
-    if x<0 or y<0 or x>row or y>col:
+    if x<0 or y<0 or x>=row or y>=col:# grid is never 1 indexed
         return False
     return True
 
