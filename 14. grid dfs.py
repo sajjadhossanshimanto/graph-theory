@@ -12,6 +12,11 @@ from store_graph import print_grid
 
 #%%
 row, col = (3, 3)
+grid =[
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
 def is_valid(x, y):
     if x<0 or y<0 or x>=row or y>=col:
         return False
@@ -22,6 +27,7 @@ movement = [(-1, 0), (0, +1), (+1, 0), (0, -1)]
 visit = [[0]*row for i in range(col)]
 def dfs(x, y):
     visit[x][y] = 1
+    print(grid[x][y])
     print_grid(visit)
     for adx, ady in movement:
         cx = x+adx
