@@ -52,6 +52,10 @@ def draw_graph(cache=True, seed=None):
     nx.draw(G, pos, with_labels=True, font_weight='bold')
     plt.show()
 
+def print_grid(matrix):
+    # chould have use pandas dataframe print function
+    print(*matrix, sep="\n")
+    print()
 
 def build_plotly():
     import plotly.graph_objects as go

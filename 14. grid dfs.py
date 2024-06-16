@@ -7,6 +7,10 @@ drid action -> (up, right, down, left)
 (increasing y)
 '''
 #%%
+from store_graph import print_grid
+
+
+#%%
 # row, col = (3, 3)
 movement = [(0, -1), (+1, 0), (0 +1), (-1, 0)]
 visit = [[0]*3 for i in range(3)]
