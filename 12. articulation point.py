@@ -29,6 +29,12 @@ inp = '''
 8 9
 '''
 
+n=3
+inp='''
+1 2
+1 3
+'''
+
 adj = graph_input(inp, n)
 draw_graph(seed=6715)
 #%%
@@ -63,18 +69,20 @@ def dfs(node, parent, timer=1):
                 '''
                 ap.add(node)
     if parent == -1 and child>1:
-        ''' secrect test case where graph has only 3 nodes'''
+        ''' secrect test case where the graph has only 3 nodes'''
         ap.add(node)
 
+#%%
 def find_ap():
     cc = 0
     for i in adj:
         if visit[i]: continue
-        dfs(i)
+        dfs(i, -1)
         cc+=1
 
     print(f'total cc = {cc}')
     for node in ap:
         print(f"articulation point {node}")
     
-#%%
+
+find_ap()
