@@ -17,7 +17,8 @@ def is_valid(x, y):
         return False
     return True
 #              up,    right,   down,    left
-movement = [(0, -1), (+1, 0), (0, +1), (-1, 0)]
+# grid system is totally oposit of what we lean in school
+movement = [(-1, 0), (0, +1), (+1, 0), (0, -1)]
 visit = [[0]*3 for i in range(3)]
 def dfs(x, y):
     visit[x][y] = 1
