@@ -32,7 +32,7 @@ def bfs(x, y):
             cy = y+ady
             
             if not is_valid(cx, cy): continue
-            if visit[cx][cy]: continue
+            if visit[cx][cy] or (grid[cx][cy]==0): continue
             
             level[cx][cy] = dis
             visit[cx][cy] = 1
