@@ -7,7 +7,7 @@ from store_graph import print_grid
 grid = [
     [0, 1, 0],
     [1, 1, 0],
-    [1, 0, 1]
+    [1, 0, 0]
 ]
 # oder   ->   up,    right,   down,    left
 movement = [(-1, 0), (0, +1), (+1, 0), (0, -1)]
@@ -18,11 +18,12 @@ def is_valid(x, y):
     return True
 
 #%%
-level = [[-1]*row for _ in range(col)]# -1 or inf
+level = [[0]*row for _ in range(col)]# -1 or inf
 visit = [[0]*row for _ in range(col)]
 def bfs(x, y):
     que = deque([(x, y)])
     visit[x][y] = 1
+    level[x][y] = 0
     dis = 1
     while que:
         x, y = que.popleft()
@@ -34,11 +35,15 @@ def bfs(x, y):
             if not is_valid(cx, cy): continue
             if visit[cx][cy] or (grid[cx][cy]==0): continue
             
-            level[cx][cy] = dis
+            level[cx][cy] = level[x][y]+1
             visit[cx][cy] = 1
             que.append((cx, cy))
-        dis += 1
+        # dis += 1# issue dis gets updated unconditionally( even if there was no valid child )
 
 #%%
 bfs(1, 1)
+# %%
+print_grid(grid)
+print_grid(level)
+
 # %%
