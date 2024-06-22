@@ -23,7 +23,6 @@ def graph_input(inp, n, indexed=1, strong_edge=False) -> defaultdict:
     G.clear()
     # TODO: build with defaultdict
     graph_list = defaultdict(list)
-    for i in range(n+indexed): G.add_node(i)
 
     for line in inp.split("\n"):
         if not line: continue
