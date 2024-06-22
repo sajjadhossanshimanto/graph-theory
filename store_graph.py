@@ -13,10 +13,13 @@ import networkx as nx
 # print(graph_list)
 
 G = nx.Graph()
-def graph_input(inp, n, indexed=1) -> defaultdict:
+def graph_input(inp, n, indexed=1, strong_edge=False) -> defaultdict:
     '''
     eighter 'Zero indexed or 'One' indexed
+    for stringly connected conponent `1 2` means 1 has directed edge toowards 2
     '''
+    strong_edge = bool(strong_edge)
+    
     G.clear()
     # TODO: build with defaultdict
     graph_list = defaultdict(list)
@@ -27,14 +30,15 @@ def graph_input(inp, n, indexed=1) -> defaultdict:
         
         a, b = map(int, line.split(" "))
         graph_list[a].append(b)
-        graph_list[b].append(a)
+        if not strong_edge:
+            graph_list[b].append(a)
         
         G.add_edge(a,b)
 
     return graph_list
 
 pos = None
-def draw_graph(cache=True, seed=None):
+def draw_graph(cache=True, seed=None, strong_edge=False):
     ''' 
     - use `cache=False` to forcefully redraw 
     ~ - if you use `seed must enable redrawing`
@@ -42,6 +46,7 @@ def draw_graph(cache=True, seed=None):
     # subax1 = plt.subplot(121)
     global pos
 
+    strong_edge = bool(strong_edge)
     if seed:
         pos = nx.drawing.spring_layout(G, seed=seed)
     elif (not cache) or (not pos):
@@ -49,7 +54,7 @@ def draw_graph(cache=True, seed=None):
         print(f"seed = {seed}")
         pos = nx.drawing.spring_layout(G, seed=seed)
 
-    nx.draw(G, pos, with_labels=True, font_weight='bold')
+    nx.draw(G, pos, with_labels=True, font_weight='bold', arrows=strong_edge, arrowstyle="->")
     plt.show()
 
 def print_grid(matrix):
