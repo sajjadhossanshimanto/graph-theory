@@ -12,7 +12,7 @@ import networkx as nx
 # graph_list[3].append(5)
 # print(graph_list)
 
-G = nx.Graph()
+G = nx.MultiDiGraph()
 def graph_input(inp, n, indexed=1, strong_edge=False) -> defaultdict:
     '''
     eighter 'Zero indexed or 'One' indexed
@@ -54,7 +54,7 @@ def draw_graph(cache=True, seed=None, strong_edge=False):
         print(f"seed = {seed}")
         pos = nx.drawing.spring_layout(G, seed=seed)
 
-    nx.draw(G, pos, with_labels=True, font_weight='bold', arrows=strong_edge, arrowstyle="->")
+    nx.draw(G, pos, with_labels=True, font_weight='bold', arrows=strong_edge, arrowstyle="->", arrowsize=40)
     plt.show()
 
 def print_grid(matrix):
