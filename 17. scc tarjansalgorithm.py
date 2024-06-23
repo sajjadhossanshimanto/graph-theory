@@ -47,9 +47,9 @@ def dfs(node, timer=1):
         # empty until all childs are removed
         while True: # do while loop  simulation
             child = stack.pop()
-            if node==child: break
             on_stack[child] = False
             low_time[child] = low_time[node]# smart move for the iddue of dfs oder
+            if node==child: break
         cc[0]+=1
 
 # %%
