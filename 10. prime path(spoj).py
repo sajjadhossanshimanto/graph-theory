@@ -5,7 +5,7 @@ to me it was a hard question
 '''
 #%%
 from store_graph import G, draw_graph
-from collections import deque
+from collections import deque, defaultdict
 
 #%%
 n = 9999
@@ -19,7 +19,7 @@ def isPrime(num):
         if num%i==0: return False
     return True
 
-adj = [[] for _ in range(n+1)]
+adj = defaultdict(list)
 primes = []
 def build_graph():
     for i in range(1000, n+1):
@@ -41,8 +41,8 @@ build_graph()
 #%%
 draw_graph()
 #%%
-dis = [0]*(n+1)
-visit = [0]*(n+1)
+dis = defaultdict(lambda : 0)
+visit = defaultdict(lambda : 0)
 def bfs(node):
     visit[node] = 1
     queue = deque([node])
