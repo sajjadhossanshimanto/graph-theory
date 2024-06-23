@@ -53,7 +53,7 @@ def draw_graph(cache=True, seed=None, strong_edge=False):
         print(f"seed = {seed}")
         pos = nx.drawing.spring_layout(G, seed=seed)
 
-    nx.draw(G, pos, with_labels=True, font_weight='bold', arrows=strong_edge, arrowstyle="->", arrowsize=40)
+    nx.draw(G, pos, with_labels=True, font_weight='bold', arrows=strong_edge, arrowsize=40)
     plt.show()
 
 def print_grid(matrix):
