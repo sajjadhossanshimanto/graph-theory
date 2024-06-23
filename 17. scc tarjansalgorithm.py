@@ -36,11 +36,14 @@ def dfs(node, timer=1):
     in_time[node] = timer
     
     for child in adj[node]:
-        if visit[child]: continue
-        
-        timer+=1
-        dfs(child, timer)
-        low_time[node] = min(low_time[node], low_time[child])# maigic hapens here
+        # if visit[child]: continue# not gonna work here. 
+        # cause evenif 1 is child of 0 and 
+        # 0 is visited previously we need to lower the value of 1
+        if not visited:
+            timer+=1
+            dfs(child, timer)
+        if on_stack[child]:# doesn't matter even if visited
+            low_time[node] = min(low_time[node], low_time[child])# maigic hapens here
     
     if low_time[node]==in_time[node]:# then is't not a part of cycle or root of cycle
         # empty until all childs are removed
