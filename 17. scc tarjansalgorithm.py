@@ -37,7 +37,7 @@ def dfs(node, timer=1):
         # if visit[child]: continue# not gonna work here. 
         # cause evenif 1 is child of 0 and 
         # 0 is visited previously we need to lower the value of 1
-        if in_time[node]==-1:# same as #if not visited:
+        if in_time[child]==-1:# same as #if not visited:
             timer+=1
             dfs(child, timer)
         if on_stack[child]:# doesn't matter even if visited
@@ -53,6 +53,9 @@ def dfs(node, timer=1):
         cc[0]+=1
 
 # %%
-dfs(0)
+for i in range(1, n+1):
+    if in_time[i]==-1:# not visited yet
+        dfs(i)
+
 print(cc[0])
 # %%
