@@ -37,7 +37,7 @@ def graph_input(inp, n, indexed=1, strong_edge=False) -> defaultdict:
     return graph_list
 
 pos = None
-def draw_graph(cache=True, seed=None, strong_edge=False):
+def draw_graph(cache=True, strong_edge=False, seed=None):
     ''' 
     - use `cache=False` to forcefully redraw 
     ~ - if you use `seed must enable redrawing`
