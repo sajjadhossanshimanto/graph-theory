@@ -22,7 +22,6 @@ adj = graph_input(inp, n, strong_edge=True)
 # draw_graph(cache=False, strong_edge=True)
 draw_graph(strong_edge=True, seed=9077)
 #%%
-visit = [0]*(n+1)
 in_time = [-1]*(n+1)
 low_time = [-1]*(n+1)
 on_stack=[False]*(n+1)# True False
@@ -30,7 +29,6 @@ stack = []
 cc=[0]# counter
 def dfs(node, timer=1):
     stack.append(node)
-    visit[node] = 1
     on_stack[node] = 1
     low_time[node] = timer
     in_time[node] = timer
@@ -39,7 +37,7 @@ def dfs(node, timer=1):
         # if visit[child]: continue# not gonna work here. 
         # cause evenif 1 is child of 0 and 
         # 0 is visited previously we need to lower the value of 1
-        if not visited:
+        if in_time[node]==-1:# same as #if not visited:
             timer+=1
             dfs(child, timer)
         if on_stack[child]:# doesn't matter even if visited
