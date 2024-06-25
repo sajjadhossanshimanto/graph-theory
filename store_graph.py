@@ -13,12 +13,13 @@ import networkx as nx
 # print(graph_list)
 
 G = nx.MultiDiGraph()
-def graph_input(inp, n, indexed=1, strong_edge=False) -> defaultdict:
+def graph_input(inp, n, indexed=1, strong_edge=False, weighted = False) -> defaultdict:
     '''
     eighter 'Zero indexed or 'One' indexed
     for stringly connected conponent `1 2` means 1 has directed edge toowards 2
     '''
     strong_edge = bool(strong_edge)
+    weighted = bool(weighted)
     
     G.clear()
     # TODO: build with defaultdict
@@ -27,10 +28,13 @@ def graph_input(inp, n, indexed=1, strong_edge=False) -> defaultdict:
     for line in inp.split("\n"):
         if not line: continue
         
-        a, b = map(int, line.split(" "))
-        graph_list[a].append(b)
+        v = map(int, line.split(" "))
+        if weighted: a, b, w = v
+        else: a, b = v
+
+        graph_list[a].append((b, w) if weighted else b)
         if not strong_edge:
-            graph_list[b].append(a)
+            graph_list[b].append((a, w) if weighted else a)
         
         G.add_edge(a,b)
 
