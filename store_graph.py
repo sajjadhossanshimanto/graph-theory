@@ -36,12 +36,13 @@ def graph_input(inp, n, indexed=1, strong_edge=False, weighted = False) -> defau
         if not strong_edge:
             graph_list[b].append((a, w) if weighted else a)
         
-        G.add_edge(a,b)
+        if weighted: G.add_edge(a,b, weight=w)
+        else: G.add_edge(a,b)
 
     return graph_list
 
 pos = None
-def draw_graph(cache=True, strong_edge=False, seed=None):
+def draw_graph(cache=True, strong_edge=False, weighted=False, seed=None):
     ''' 
     - use `cache=False` to forcefully redraw 
     ~ - if you use `seed must enable redrawing`
@@ -58,6 +59,10 @@ def draw_graph(cache=True, strong_edge=False, seed=None):
         pos = nx.drawing.spring_layout(G, seed=seed)
 
     nx.draw(G, pos, with_labels=True, font_weight='bold', arrows=strong_edge, arrowsize=40)
+    if weighted:
+        edge_labels = nx.get_edge_attributes(G, "weight")
+        nx.draw_networkx_edge_labels(G, pos, edge_labels)
+
     plt.show()
 
 def print_grid(matrix):

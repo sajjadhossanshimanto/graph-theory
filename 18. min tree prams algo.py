@@ -1,6 +1,8 @@
 '''
 learned from https://www.geeksforgeeks.org/prims-minimum-spanning-tree-mst-greedy-algo-5/
 '''
+#%%
+from store_graph import graph_input, draw_graph
 import heapq
 
 
@@ -21,6 +23,10 @@ inp = '''
 1 7 11
 3 5 14
 '''
+adj = graph_input(inp, n, weighted=True)
+draw_graph(0, weighted=True)
+
+#%%
 # 1st take the lowest edge
 edge_q = [(0, 0)]# (0, 0) taken as dump edge. its better than finding min among weights
 
