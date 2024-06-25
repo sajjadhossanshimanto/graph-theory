@@ -11,7 +11,7 @@ inp = '''
 5 6 15
 '''
 
-
+n = 8
 inp = '''
 7 6 1
 8 2 2
@@ -40,15 +40,38 @@ def parse_inp(inp):
 inp = sorted(parse_inp(inp), key=lambda x:x[2])
 
 #%%
+index = [-1]*(n+1)
+def find(a):
+    # while True:
+    #     parent = index[a]
+    #     if parent<0: return a# itself is a parent
+    #     a=parent
+
+    parent = index[a]
+    if parent<0: return a
+    
+    parent = find(parent)
+    # path compration
+    index[a]=parent
+    return parent
+
+def union(a, b):
+    ''' it is confirmed that `a` & `b` do not lies on the same graph 
+    
+    paramiters:
+        a: would be set as parent of b
+    '''
+    # find works in a constant time, so it would be a proablem
+    index[find(b)]=find(a)
+
+#%%
 total = 0
-graph = set()# djset
+graph = []*(n+1)
 for a, b, w in inp:
-    if (a not in graph) or (b not in graph):
-        graph.add(a)
-        graph.add(b)
+    if find(a)!=find(b):
+        union(a, b)
         total += w
         print(a, b, w)
-        
 
 print(total)
 # %%
