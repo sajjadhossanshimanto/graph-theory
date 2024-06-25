@@ -28,6 +28,7 @@ inp = '''
 1 7 11
 3 5 14
 '''
+# ans should be 37
 
 
 def parse_inp(inp):
@@ -46,6 +47,7 @@ for a, b, w in inp:
         graph.add(a)
         graph.add(b)
         total += w
+        print(a, b, w)
         
 
 print(total)
