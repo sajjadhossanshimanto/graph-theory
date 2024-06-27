@@ -17,7 +17,7 @@ inp = '''
 5 6
 6 4
 '''
-adj = graph_input(inp, n, directed=True)
+adj = graph_input(inp, directed=True)
 
 # draw_graph(cache=False, directed=True)
 draw_graph(directed=True, seed=9077)

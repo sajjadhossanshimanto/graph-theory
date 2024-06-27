@@ -23,7 +23,7 @@ inp = '''
 1 7 11
 3 5 14
 '''
-adj = graph_input(inp, n, weighted=True)
+adj = graph_input(inp, weighted=True)
 draw_graph(0, weighted=True)
 
 #%%

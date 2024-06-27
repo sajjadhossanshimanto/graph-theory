@@ -16,7 +16,7 @@ inp = '''
 5 6
 5 4
 '''
-adj_list = graph_input(inp, n)
+adj_list = graph_input(inp)
 
 #%%
 visit = [0]*(n+1)

@@ -35,7 +35,7 @@ inp='''
 1 3
 '''
 
-adj = graph_input(inp, n)
+adj = graph_input(inp)
 draw_graph(seed=6715)
 #%%
 visit = defaultdict(lambda : 0)

@@ -20,7 +20,7 @@ inp='''
 6 7
 '''
 
-adj_list = graph_input(inp, n)
+adj_list = graph_input(inp)
 # print(p)
 draw_graph()
 

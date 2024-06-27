@@ -37,7 +37,7 @@ inp = '''
 8 9
 '''
 
-adj = graph_input(inp, n)
+adj = graph_input(inp)
 
 #%%
 visit = defaultdict(lambda : 0)

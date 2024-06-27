@@ -15,7 +15,7 @@ inp = '''
 '''
 # ans: [inf, 0, 2, 3, 8, 6, 9]
 
-adj = graph_input(inp, n, weighted=True)
+adj = graph_input(inp, weighted=True)
 # draw_graph(weighted=True, cache=False)
 draw_graph(weighted=True, seed=5756)
 #%%
