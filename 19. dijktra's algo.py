@@ -6,16 +6,18 @@ n = 6
 inp = '''
 1 2 2
 1 3 4
+2 3 1
 2 4 7
 3 5 3
 4 5 2
 4 6 1
 5 6 5
 '''
+# ans: [inf, 0, 2, 3, 8, 6, 9]
 
 adj = graph_input(inp, n, weighted=True)
 # draw_graph(weighted=True, cache=False)
-draw_graph(weighted=True, seed=9853)
+draw_graph(weighted=True, seed=5756)
 #%%
 sssp = [float("inf")]*(n+1)
 
