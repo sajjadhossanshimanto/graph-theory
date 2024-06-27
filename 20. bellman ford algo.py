@@ -24,9 +24,10 @@ for line in inp.split('\n'):
 
 
 #%%
-dis = [float("inf")]*(n+1)
 def bellman(node):
+    dis = [float("inf")]*(n+1)
     dis[node] = 0
+    
     for _ in range(n-1):
         relaxed = False
         for u, v, w in nodes:
@@ -35,7 +36,11 @@ def bellman(node):
                 relaxed = True
                 dis[v] = nd
 
-        if not relaxed: return
+        if not relaxed: return dis
 
-bellman(1)
+    # Check for negative-weight cycle (one more iteration)
+    for u, v, w in nodes:
+        if dis[u] + w < dis[v]: return None
+
+dis = bellman(1)
 # %%
