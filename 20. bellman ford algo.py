@@ -28,10 +28,14 @@ dis = [float("inf")]*(n+1)
 def bellman(node):
     dis[node] = 0
     for _ in range(n-1):
+        relaxed = False
         for u, v, w in nodes:
             nd = dis[u]+w
             if nd<dis[v]:
+                relaxed = True
                 dis[v] = nd
+
+        if not relaxed: return
 
 bellman(1)
 # %%
