@@ -27,11 +27,12 @@ def dijksta(node):
         nd = sssp[node]+w
         if nd<=sssp[child]:
             sssp[child] = nd
-            if sssp[child]<sortest[0]:
+            if sssp[child]<sortest[1]:
                 sortest =(child, sssp[child])
 
     if sortest[0]==node: return
     dijksta(sortest[0])
 
+sssp[1]=0# make sure starting node has dis 0
 dijksta(1)
 # %%
