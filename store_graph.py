@@ -13,7 +13,7 @@ import networkx as nx
 # print(graph_list)
 
 G = nx.MultiDiGraph()
-def graph_input(inp, n, indexed=1, strong_edge=False, weighted = False) -> defaultdict:
+def graph_input(inp, indexed=1, strong_edge=False, weighted = False) -> defaultdict:
     '''
     eighter 'Zero indexed or 'One' indexed
     for stringly connected conponent `1 2` means 1 has directed edge toowards 2
