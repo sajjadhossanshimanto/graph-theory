@@ -13,12 +13,12 @@ import networkx as nx
 # print(graph_list)
 
 G = nx.MultiDiGraph()
-def graph_input(inp, indexed=1, strong_edge=False, weighted = False) -> defaultdict:
+def graph_input(inp, indexed=1, directed=False, weighted = False) -> defaultdict:
     '''
     eighter 'Zero indexed or 'One' indexed
     for stringly connected conponent `1 2` means 1 has directed edge toowards 2
     '''
-    strong_edge = bool(strong_edge)
+    directed = bool(directed)
     weighted = bool(weighted)
     
     G.clear()
@@ -33,7 +33,7 @@ def graph_input(inp, indexed=1, strong_edge=False, weighted = False) -> defaultd
         else: a, b = v
 
         graph_list[a].append((b, w) if weighted else b)
-        if not strong_edge:
+        if not directed:
             graph_list[b].append((a, w) if weighted else a)
         
         if weighted: G.add_edge(a,b, weight=w)
@@ -42,7 +42,7 @@ def graph_input(inp, indexed=1, strong_edge=False, weighted = False) -> defaultd
     return graph_list
 
 pos = None
-def draw_graph(cache=True, strong_edge=False, weighted=False, seed=None):
+def draw_graph(cache=True, directed=False, weighted=False, seed=None):
     ''' 
     - use `cache=False` to forcefully redraw 
     ~ - if you use `seed must enable redrawing`
@@ -50,7 +50,7 @@ def draw_graph(cache=True, strong_edge=False, weighted=False, seed=None):
     # subax1 = plt.subplot(121)
     global pos
 
-    strong_edge = bool(strong_edge)
+    directed = bool(directed)
     if seed:
         pos = nx.drawing.spring_layout(G, seed=seed)
     elif (not cache) or (not pos):
@@ -58,7 +58,7 @@ def draw_graph(cache=True, strong_edge=False, weighted=False, seed=None):
         print(f"seed = {seed}")
         pos = nx.drawing.spring_layout(G, seed=seed)
 
-    nx.draw(G, pos, with_labels=True, font_weight='bold', arrows=strong_edge, arrowsize=40)
+    nx.draw(G, pos, with_labels=True, font_weight='bold', arrows=directed, arrowsize=40)
     if weighted:
         edge_labels = nx.get_edge_attributes(G, "weight")
         nx.draw_networkx_edge_labels(G, pos, edge_labels)

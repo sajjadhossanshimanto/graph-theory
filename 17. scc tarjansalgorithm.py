@@ -17,10 +17,10 @@ inp = '''
 5 6
 6 4
 '''
-adj = graph_input(inp, n, strong_edge=True)
+adj = graph_input(inp, n, directed=True)
 
-# draw_graph(cache=False, strong_edge=True)
-draw_graph(strong_edge=True, seed=9077)
+# draw_graph(cache=False, directed=True)
+draw_graph(directed=True, seed=9077)
 #%%
 in_time = [-1]*(n+1)
 low_time = [-1]*(n+1)

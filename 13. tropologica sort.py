@@ -17,8 +17,8 @@ inp = '''
 6 4
 '''
 
-adj = graph_input(inp, n, strong_edge=True)
-draw_graph(strong_edge=True, seed=6291)
+adj = graph_input(inp, directed=True)
+draw_graph(directed=True, seed=6291)
 # draw_graph(False, True)
 #%%
 visit = [0]*(n+1)
