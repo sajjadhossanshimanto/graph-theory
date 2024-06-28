@@ -12,7 +12,7 @@ import networkx as nx
 # graph_list[3].append(5)
 # print(graph_list)
 
-G = nx.MultiDiGraph()
+G = nx.DiGraph()
 def graph_input(inp, indexed=1, directed=False, weighted = False) -> defaultdict:
     '''
     eighter 'Zero indexed or 'One' indexed
@@ -36,7 +36,7 @@ def graph_input(inp, indexed=1, directed=False, weighted = False) -> defaultdict
         if not directed:
             graph_list[b].append((a, w) if weighted else a)
         
-        if weighted: G.add_edge(a,b, weight=w)
+        if weighted: G.add_edge(a,b, weight=w, length=w)
         else: G.add_edge(a,b)
 
     return graph_list
@@ -52,13 +52,13 @@ def draw_graph(cache=True, directed=False, weighted=False, seed=None):
 
     directed = bool(directed)
     if seed:
-        pos = nx.drawing.spring_layout(G, seed=seed)
+        pos = nx.spring_layout(G, seed=seed)
     elif (not cache) or (not pos):
         seed = randint(1000, 9999)
         print(f"seed = {seed}")
-        pos = nx.drawing.spring_layout(G, seed=seed)
+        pos = nx.spring_layout(G, seed=seed)
 
-    nx.draw(G, pos, with_labels=True, font_weight='bold', arrows=directed, arrowsize=40)
+    nx.draw(G, pos, with_labels=True, font_weight='bold', arrows=directed, arrowsize=40, connectionstyle='arc3, rad = 0.1')
     if weighted:
         edge_labels = nx.get_edge_attributes(G, "weight")
         nx.draw_networkx_edge_labels(G, pos, edge_labels)
