@@ -107,19 +107,20 @@ G = nx.DiGraph()
 
 G.add_edges_from(edge_list)
 pos=nx.spring_layout(G, seed=5)
+
 nx.draw_networkx_nodes(G, pos)
 nx.draw_networkx_labels(G, pos)
 
 
 curved_edges = [edge for edge in G.edges() if reversed(edge) in G.edges()]
 straight_edges = list(set(G.edges()) - set(curved_edges))
-nx.draw_networkx_edges(G, pos, edgelist=straight_edges)
 arc_rad = 0.25
+nx.draw_networkx_edges(G, pos, edgelist=straight_edges)
 nx.draw_networkx_edges(G, pos, edgelist=curved_edges, connectionstyle=f'arc3, rad = {arc_rad}')
 
 edge_weights = nx.get_edge_attributes(G,'w')
 curved_edge_labels = {edge: edge_weights[edge] for edge in curved_edges}
 straight_edge_labels = {edge: edge_weights[edge] for edge in straight_edges}
-my_draw_networkx_edge_labels(G, pos, edge_labels=curved_edge_labels, rotate=False, rad = arc_rad)
 nx.draw_networkx_edge_labels(G, pos, edge_labels=straight_edge_labels, rotate=False)
+my_draw_networkx_edge_labels(G, pos, edge_labels=curved_edge_labels, rotate=False, rad = arc_rad)
 # %%
