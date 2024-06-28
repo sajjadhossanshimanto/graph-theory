@@ -12,7 +12,109 @@ import networkx as nx
 # graph_list[3].append(5)
 # print(graph_list)
 
+
+def my_draw_networkx_edge_labels(
+    G,
+    pos,
+    edge_labels=None,
+    label_pos=0.5,
+    font_size=10,
+    font_color="k",
+    font_family="sans-serif",
+    font_weight="normal",
+    alpha=None,
+    bbox=None,
+    horizontalalignment="center",
+    verticalalignment="center",
+    ax=None,
+    rotate=True,
+    clip_on=True,
+    rad=0
+):
+    '''
+    code credit: https://stackoverflow.com/questions/22785849/drawing-multiple-edges-between-two-nodes-with-networkx
+    '''
+    import numpy as np
+    
+    if ax is None:
+        ax = plt.gca()
+    if edge_labels is None:
+        labels = {(u, v): d for u, v, d in G.edges(data=True)}
+    else:
+        labels = edge_labels
+    text_items = {}
+    for (n1, n2), label in labels.items():
+        (x1, y1) = pos[n1]
+        (x2, y2) = pos[n2]
+        (x, y) = (
+            x1 * label_pos + x2 * (1.0 - label_pos),
+            y1 * label_pos + y2 * (1.0 - label_pos),
+        )
+        pos_1 = ax.transData.transform(np.array(pos[n1]))
+        pos_2 = ax.transData.transform(np.array(pos[n2]))
+        linear_mid = 0.5*pos_1 + 0.5*pos_2
+        d_pos = pos_2 - pos_1
+        rotation_matrix = np.array([(0,1), (-1,0)])
+        ctrl_1 = linear_mid + rad*rotation_matrix@d_pos
+        ctrl_mid_1 = 0.5*pos_1 + 0.5*ctrl_1
+        ctrl_mid_2 = 0.5*pos_2 + 0.5*ctrl_1
+        bezier_mid = 0.5*ctrl_mid_1 + 0.5*ctrl_mid_2
+        (x, y) = ax.transData.inverted().transform(bezier_mid)
+
+        if rotate:
+            # in degrees
+            angle = np.arctan2(y2 - y1, x2 - x1) / (2.0 * np.pi) * 360
+            # make label orientation "right-side-up"
+            if angle > 90:
+                angle -= 180
+            if angle < -90:
+                angle += 180
+            # transform data coordinate angle to screen coordinate angle
+            xy = np.array((x, y))
+            trans_angle = ax.transData.transform_angles(
+                np.array((angle,)), xy.reshape((1, 2))
+            )[0]
+        else:
+            trans_angle = 0.0
+        # use default box of white with white border
+        if bbox is None:
+            bbox = dict(boxstyle="round", ec=(1.0, 1.0, 1.0), fc=(1.0, 1.0, 1.0))
+        if not isinstance(label, str):
+            label = str(label)  # this makes "1" and 1 labeled the same
+
+        t = ax.text(
+            x,
+            y,
+            label,
+            size=font_size,
+            color=font_color,
+            family=font_family,
+            weight=font_weight,
+            alpha=alpha,
+            horizontalalignment=horizontalalignment,
+            verticalalignment=verticalalignment,
+            rotation=trans_angle,
+            transform=ax.transData,
+            bbox=bbox,
+            zorder=1,
+            clip_on=clip_on,
+        )
+        text_items[(n1, n2)] = t
+
+    ax.tick_params(
+        axis="both",
+        which="both",
+        bottom=False,
+        left=False,
+        labelbottom=False,
+        labelleft=False,
+    )
+
+    return text_items
+
 G = nx.DiGraph()
+curved_edge_labels = {}
+straight_edge_labels = {}
 def graph_input(inp, indexed=1, directed=False, weighted = False) -> defaultdict:
     '''
     eighter 'Zero indexed or 'One' indexed
@@ -36,7 +138,12 @@ def graph_input(inp, indexed=1, directed=False, weighted = False) -> defaultdict
         if not directed:
             graph_list[b].append((a, w) if weighted else a)
         
-        if weighted: G.add_edge(a,b, weight=w, length=w)
+        if (b, a) in G.edges() and directed:# reverse of current edge(a, b)
+            curved_edge_labels[(a, b)] = w
+        else:
+            straight_edge_labels[(a, b)] = w
+
+        if weighted: G.add_edge(a,b, weight=w)
         else: G.add_edge(a,b)
 
     return graph_list
@@ -58,10 +165,22 @@ def draw_graph(cache=True, directed=False, weighted=False, seed=None):
         print(f"seed = {seed}")
         pos = nx.spring_layout(G, seed=seed)
 
-    nx.draw(G, pos, with_labels=True, font_weight='bold', arrows=directed, arrowsize=40, connectionstyle='arc3, rad = 0.1')
+    # nodes with level
+    nx.draw_networkx_nodes(G, pos)
+    nx.draw_networkx_labels(G, pos)
+
+    # edges -> straight & curve
+    arc_rad = 0.25
+    nx.draw_networkx_edges(G, pos, edgelist=straight_edge_labels.keys(), arrows=directed)
+    if curved_edge_labels:
+        nx.draw_networkx_edges(G, pos, edgelist=curved_edge_labels.keys(), connectionstyle=f'arc3, rad = {arc_rad}', arrows=directed)
+
+    # weights
     if weighted:
-        edge_labels = nx.get_edge_attributes(G, "weight")
-        nx.draw_networkx_edge_labels(G, pos, edge_labels)
+        nx.draw_networkx_edge_labels(G, pos, edge_labels=straight_edge_labels, rotate=False)
+        if curved_edge_labels:
+            my_draw_networkx_edge_labels(G, pos, edge_labels=curved_edge_labels, rotate=False, rad = arc_rad)
+
 
     plt.show()
 
