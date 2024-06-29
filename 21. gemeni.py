@@ -29,4 +29,26 @@ def floyd_warshall(edges):
 
   return dist
 
-# ... (rest of your code for processing input and printing results)
+
+# Processing input (assuming weights are space-separated integers in each line)
+inp = """
+1 2 3
+2 1 8
+1 4 7
+4 1 2
+2 3 2
+3 1 5
+3 4 1
+"""
+
+edges = []
+for line in inp.splitlines():
+  if not line:
+    continue
+  u, v, w = map(int, line.split())
+  edges.append((u - 1, v - 1, w))
+
+# Floyd-Warshall
+shortest_distances = floyd_warshall(edges.copy())  # Copy to avoid modifying input
+
+print(shortest_distances)
