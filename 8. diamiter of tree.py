@@ -11,7 +11,7 @@ inp = '''
 4 5
 4 6
 '''
-adj_list = graph_input(inp, 7)
+adj_list = graph_input(inp)
 draw_graph()
 
 #%%

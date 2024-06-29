@@ -115,11 +115,7 @@ def my_draw_networkx_edge_labels(
 G = nx.DiGraph()
 curved_edge_labels = {}
 straight_edge_labels = {}
-def graph_input(inp, indexed=1, directed=False, weighted = False) -> defaultdict:
-    '''
-    eighter 'Zero indexed or 'One' indexed
-    for stringly connected conponent `1 2` means 1 has directed edge toowards 2
-    '''
+def graph_input(inp, directed=False, weighted = False) -> defaultdict:
     directed = bool(directed)
     weighted = bool(weighted)
     
