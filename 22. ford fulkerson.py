@@ -22,10 +22,8 @@ visit = defaultdict(lambda :0)
 def find_agmented_path(node="s", agm_path = []):
     visit[node]=1
     agm_path.append(node)
-    if node=="t": 
-        return print(agm_path)
-    
-    for child in adj[node]:
+
+    for child, w in adj[node]:        
         if visit[child]: continue
         
         find_agmented_path(child)# memorised. no need to pass variable
