@@ -1,4 +1,4 @@
-# todo: zero based,default dict
+# todo:default dict
 #%%
 from store_graph import graph_input, draw_graph
 # from functools import lru_cache
@@ -19,28 +19,30 @@ graph_input(inp, 1, 1, 1)
 draw_graph(0, 1, 1, seed=3083)
 # %%
 # processing input
-dis = [[float('inf')]*(n+1) for _ in range(n+1)]
+dis = [[float('inf')]*(n) for _ in range(n)]
 for line in inp.split("\n"):
     if not line: continue
     
     u, v, w = map(int, line.split(' '))
+    # convert one based indexing to zero
+    u-=1
+    v-=1
     dis[u][v] = w
     dis[u][u] = 0
     dis[v][v] = 0
 
 #%%
-def floyd_warshell():
-    pass
+# floyd_warshell
 
-for selected_node in range(1, n+1):# selecting one
+for selected_node in range(n):# selecting one
     # now generate row by row
-    for row in range(1, n+1):
+    for row in range(n):
         if row==selected_node:
             # keep as it is
             continue
         
         # generate new values for row
-        for coloum in range(1, n+1):
+        for coloum in range(n):
             # generating corner of matrix
             if coloum==row: dis[row][coloum] = 0
             elif coloum==selected_node:
