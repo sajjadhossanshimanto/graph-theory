@@ -44,6 +44,7 @@ for line in inp.split("\n"):
 # floyd_warshell
 
 for selected_node in range(n):# selecting one
+    no_change = True
     # now generate row by row
     for row in range(n):
         if row==selected_node:
@@ -62,4 +63,8 @@ for selected_node in range(n):# selecting one
                 if nd<dis[row][coloum]:
                     # TODO: should I consider if its equal? depens actually if i consider connecting multiple edge is better
                     dis[row][coloum] = nd
-# %%
+                    no_change = False
+
+        # Early stopping: If no distances changed in a round, all shortest paths are found
+        if selected_node > 0 and no_change:
+            break
