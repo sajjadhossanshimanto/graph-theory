@@ -1,4 +1,11 @@
 # todo:default dict
+'''
+things to consider
+1. we are not storing inputed edge
+2. just ditermining the sortage dis, path is not calculated for now. although it's possible
+3. modifing the initial  generated matrix. no copy is saved
+4. variable rename u, v, wk= from_node, to_node, selected_node
+'''
 #%%
 from store_graph import graph_input, draw_graph
 # from functools import lru_cache
