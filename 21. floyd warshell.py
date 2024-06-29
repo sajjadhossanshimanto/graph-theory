@@ -18,9 +18,8 @@ inp = '''
 graph_input(inp, 1, 1, 1)
 draw_graph(0, 1, 1, seed=3083)
 # %%
-blank_matrix = [[float('inf')]*(n+1) for _ in range(n+1)]
 # processing input
-dis = blank_matrix.copy()
+dis = [[float('inf')]*(n+1) for _ in range(n+1)]
 for line in inp.split("\n"):
     if not line: continue
     
