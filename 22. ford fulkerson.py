@@ -28,7 +28,6 @@ def find_agmented_path(node="s", agm_path = []):
     for child in adj[node]:
         if visit[child]: continue
         
-        agm_path.append(child)
         find_agmented_path(child)# memorised. no need to pass variable
         agm_path.pop()
 
