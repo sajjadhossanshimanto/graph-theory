@@ -20,8 +20,11 @@ adj = graph_input(inp, directed=1, weighted=1, node_type=str)
 #%%
 visit = defaultdict(lambda :0)
 def find_agmented_path(node="s", agm_path = []):
-    visit[node]=1
     agm_path.append(node)
+    if node=="t":
+        print(agm_path)# logic goes here
+        return # avoid marked visit 
+    visit[node]=1
 
     for child, w in adj[node]:        
         if visit[child]: continue
