@@ -29,25 +29,27 @@ for line in inp.split("\n"):
     dis[u][u] = 0
     dis[v][v] = 0
 
+#%%
 def floyd_warshell():
     pass
 
 for selected_node in range(1, n+1):# selecting one
-    matrix = [[float('inf')*n+1]]
     # now generate row by row
     for row in range(1, n+1):
         if row==selected_node:
-            matrix.append(dis[selected_node])
+            # keep as it is
             continue
         
-        new_row=[float('inf')]
+        # generate new values for row
         for coloum in range(1, n+1):
             # generating corner of matrix
-            if coloum==row: row.append(0)
+            if coloum==row: dis[row][coloum] = 0
             elif coloum==selected_node:
-                new_row.append(dis[row][coloum])
+                # keep as it is
+                continue
             else:
                 nd = dis[row][selected_node] + dis[selected_node][coloum]
                 if nd<dis[row][coloum]:
-                    # TODO: should is consider if its equal. depens actually if i consider connecting multiple edge is better
+                    # TODO: should I consider if its equal? depens actually if i consider connecting multiple edge is better
                     dis[row][coloum] = nd
+# %%
