@@ -23,12 +23,13 @@ def find_agmented_path(node="s", agm_path = []):
     agm_path.append(node)
     if node=="t":
         print(agm_path)# logic goes here
+        visit.clear()# do not remove the visited array. it actually helps to avoid back edge
         return # avoid marked visit 
     visit[node]=1
 
-    for child, w in adj[node]:        
+    for child, w in adj[node]:
         if visit[child]: continue
-        
+
         find_agmented_path(child)# memorised. no need to pass variable
         agm_path.pop()
 
