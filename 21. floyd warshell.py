@@ -4,7 +4,7 @@ from store_graph import graph_input, draw_graph
 # from functools import lru_cache
 
 
-n=4
+# n=4
 inp = '''
 1 2 3
 2 1 8
@@ -18,6 +18,7 @@ inp = '''
 graph_input(inp, 1, 1, 1)
 draw_graph(0, 1, 1, seed=3083)
 # %%
+n = -1
 # processing input
 dis = [[float('inf')]*(n) for _ in range(n)]
 for line in inp.split("\n"):
@@ -27,6 +28,7 @@ for line in inp.split("\n"):
     # convert one based indexing to zero
     u-=1
     v-=1
+    if max(u, v) > n: n = max(v, u)
     dis[u][v] = w
     dis[u][u] = 0
     dis[v][v] = 0
