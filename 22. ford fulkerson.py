@@ -19,10 +19,10 @@ b t 8
 adj = graph_input(inp, directed=1, weighted=1, node_type=str)
 #%%
 visit = defaultdict(lambda :0)
-def find_agmented_path(node="s", agm_path = []):
+def find_agmented_path(node="s", agm_path = [], max_flow=(float('inf'), )):
     agm_path.append(node)
     if node=="t":
-        print(agm_path)# logic goes here
+        print(agm_path, max_flow)# logic goes here
         visit.clear()# do not remove the visited array. it actually helps to avoid back edge
         return # avoid marked visit 
     visit[node]=1
@@ -30,7 +30,9 @@ def find_agmented_path(node="s", agm_path = []):
     for child, w in adj[node]:
         if visit[child]: continue
 
-        find_agmented_path(child)# memorised. no need to pass variable
+        w=int(w)
+        if w<max_flow[0]: max_flow = (w, child)
+        find_agmented_path(child, max_flow=max_flow)# memorised. no need to pass variable
         agm_path.pop()
 
 find_agmented_path()
