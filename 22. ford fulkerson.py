@@ -19,10 +19,17 @@ b t 8
 adj = graph_input(inp, directed=1, weighted=1, node_type=str)
 #%%
 visit = defaultdict(lambda :0)
+height_flow = -1
+final_flow =[]
 def find_agmented_path(node="s", agm_path = [], max_flow=(float('inf'), )):
+    global final_flow, height_flow
+
     agm_path.append(node)
     if node=="t":
         print(agm_path, max_flow)# logic goes here
+        if max_flow[0]>height_flow:
+            final_flow = agm_path
+            height_flow = max_flow[0]
         visit.clear()# do not remove the visited array. it actually helps to avoid back edge
         return # avoid marked visit 
     visit[node]=1
@@ -36,6 +43,7 @@ def find_agmented_path(node="s", agm_path = [], max_flow=(float('inf'), )):
         agm_path.pop()
 
 find_agmented_path()
-
+print("final ->", final_flow)
+# can there be any nodes that don't dgoes to sink
 
 # %%
