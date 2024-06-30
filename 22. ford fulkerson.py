@@ -28,7 +28,7 @@ def find_agmented_path(node="s", agm_path = [], max_flow=(float('inf'), )):
     if node=="t":
         print(agm_path, max_flow)# logic goes here
         if max_flow[0]>height_flow:
-            final_flow = agm_path
+            final_flow = agm_path.copy()# pop effected selected final path
             height_flow = max_flow[0]
         visit.clear()# do not remove the visited array. it actually helps to avoid back edge
         return # avoid marked visit 
