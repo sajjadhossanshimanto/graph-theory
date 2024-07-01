@@ -6,6 +6,7 @@
 
 # learnoing 
 - we use `weight matrix` when we need both direct and reverse edge
+- in list indexing is pointer
 '''
 
 #%%
@@ -35,15 +36,17 @@ def bfs(s, t):
     q.append([s, float('inf')])
     bottleneck = float("inf")
     while q:
-        node, flow = q.popleft()
+        node_pointer = q.popleft()
+        node, flow = node_pointer
         bottleneck = min(bottleneck, flow)
         
-        for child in adj[node]:
-            if child not in parent and capacity[node][child]:
-                parent[child] = node
+        for child_pointer in adj[node]:
+            child, w = child_pointer
+            if child not in parent and w:
+                parent[child] = node_pointer# TODO: node pointer
 
                 if child==t: return bottleneck, parent
-                q.append((child, capacity[node][child]))
+                q.append(child_pointer)
 
 def max_flow(s, t):
     flow = 0
@@ -58,24 +61,27 @@ def max_flow(s, t):
         cur = t
         while cur!=s:
             prev = parent[cur]
-            capacity[prev][cur] -= new_flow# direct edge
-            # capacity[cur][prev] +=new_flow# reverse edge
-            cur = prev
+            prev[1] -= new_flow
+            # capacity[prev][cur] -= new_flow# direct edge
+            # # capacity[cur][prev] +=new_flow# reverse edge
+            cur = prev[0]
 
     return flow
 
 #%%
 adj = defaultdict(list)
-capacity = defaultdict(dict)
+# capacity = defaultdict(dict)
 for line in inp.split("\n"):
     if not line: continue
     
     u, v, w = line.split(" ")
     w = int(w)
-    adj[u].append(v)
-    capacity[u][v] = w
+    adj[u].append([v, w])# [node, incoming_flow]# this have tobe nonfrezen
+#     capacity[u][v] = w
     # capacity[v][u] = -w
 
 #%%
-print(max_flow("s", "t"))
+source = "s"
+sink = "t"
+print(max_flow(source, sink))
 # %%
