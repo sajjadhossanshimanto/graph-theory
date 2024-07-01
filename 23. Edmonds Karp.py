@@ -14,7 +14,7 @@ from collections import deque, defaultdict
 #%%
 def bfs(s, t):
     n = len(capacity)
-    parent = [-1]*n# need for backtracking
+    parent = defaultdict(lambda :-1)# need for backtracking
     
     q = deque([(s, float("inf"))])# [(node, flow), ....]
     while not q.empty():
