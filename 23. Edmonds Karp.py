@@ -29,20 +29,20 @@ draw_graph(0, 1, 1, seed=8268)
 #%%
 def bfs(s, t):
     n = len(capacity)
-    parent = defaultdict(lambda :-1)# need for backtracking
+    trace_back= []# need for backtracking
     
     q = deque()# [(node, incoming_flow), ....]
     q.append([s, float('inf')])
     bottleneck = float("inf")
     while q:
         node, flow = q.popleft()
+        trace_back.append(node)
         bottleneck = min(bottleneck, flow)
         
         for child in adj[node]:
-            if parent[child]==-1 and capacity[node][child]:
-                parent[child] = node
-                
-                if child==t: return bottleneck, parent
+            if child not in trace_back and capacity[node][child]:
+                if child==t: 
+                    return bottleneck, trace_back
                 q.append((child, capacity[node][child]))
 
 def max_flow(s, t):
@@ -57,11 +57,11 @@ def max_flow(s, t):
         # back tracking
         cur = t
         while cur!=s:
-            prev = parent[cur]
+            prev = parent.pop()
             capacity[prev][cur] -= new_flow# direct edge
             capacity[cur][prev] +=new_flow# reverse edge
             cur = prev
-    
+
     return flow
 
 #%%
@@ -78,5 +78,4 @@ for line in inp.split("\n"):
 
 #%%
 print(max_flow("s", "t"))
-
 # %%
