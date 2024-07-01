@@ -31,17 +31,19 @@ def bfs(s, t):
     n = len(capacity)
     parent = defaultdict(lambda :-1)# need for backtracking
     
-    q = deque([(s, float("inf"))])# [(node, flow), ....]
+    q = deque()# [(node, incoming_flow), ....]
+    q.append([s, float('inf')])
+    bottleneck = float("inf")
     while q:
         node, flow = q.popleft()
+        bottleneck = min(bottleneck, flow)
         
         for child in adj[node]:
             if parent[child]==-1 and capacity[node][child]:
                 parent[child] = node
-                new_flow = min(flow, capacity[node][child])
                 
-                if child==t: return new_flow, parent
-                q.append((child, new_flow))
+                if child==t: return bottleneck, parent
+                q.append((child, capacity[node][child]))
 
 def max_flow(s, t):
     flow = 0
