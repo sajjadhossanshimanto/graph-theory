@@ -61,3 +61,20 @@ def max_flow(s, t):
             cur = prev
     
     return flow
+
+#%%
+adj = defaultdict(list)
+capacity = defaultdict(dict)
+for line in inp.split("\n"):
+    if not line: continue
+    
+    u, v, w = line.split(" ")
+    w = int(w)
+    adj[u].append(v)
+    capacity[u][v] = w
+    capacity[v][u] = -w
+
+#%%
+print(max_flow("s", "t"))
+
+# %%
