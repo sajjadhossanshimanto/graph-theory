@@ -62,8 +62,6 @@ def max_flow(s, t):
         while cur!=s:
             prev = parent[cur]
             prev[1] -= new_flow
-            # capacity[prev][cur] -= new_flow# direct edge
-            # # capacity[cur][prev] +=new_flow# reverse edge
             cur = prev[0]
 
     return flow
@@ -77,8 +75,6 @@ for line in inp.split("\n"):
     u, v, w = line.split(" ")
     w = int(w)
     adj[u].append([v, w])# [node, incoming_flow]# this have tobe nonfrezen
-#     capacity[u][v] = w
-    # capacity[v][u] = -w
 
 #%%
 source = "s"
