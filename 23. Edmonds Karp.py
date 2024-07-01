@@ -9,8 +9,23 @@
 
 #%%
 from collections import deque, defaultdict
+from store_graph import graph_input, draw_graph
 
 
+inp = '''
+s a 7
+s d 4
+a b 5
+a c 3
+c b 3
+d a 3
+d c 2
+c t 5
+b t 8
+'''
+
+graph_input(inp, directed=1, weighted=1, node_type=str)
+draw_graph(0, 1, 1, seed=8268)
 #%%
 def bfs(s, t):
     n = len(capacity)
