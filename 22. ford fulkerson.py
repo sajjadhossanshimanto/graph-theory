@@ -17,6 +17,8 @@ b t 8
 
 # note: though network is directed. create adj considering undirected. because of residual edge
 adj = graph_input(inp, directed=1, weighted=1, node_type=str)
+draw_graph(0, 1, 1, seed=8268)
+
 #%%
 visit = defaultdict(lambda :0)
 height_flow = -1
