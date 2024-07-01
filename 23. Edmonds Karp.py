@@ -29,7 +29,6 @@ graph_input(inp, directed=1, weighted=1, node_type=str)
 draw_graph(0, 1, 1, seed=8268)
 #%%
 def bfs(s, t):
-    n = len(capacity)
     parent= {}# need for backtracking
     
     q = deque()# [(node, incoming_flow), ....]
