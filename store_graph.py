@@ -115,7 +115,7 @@ def my_draw_networkx_edge_labels(
 G = nx.DiGraph()
 curved_edge_labels = {}
 straight_edge_labels = {}
-def graph_input(inp, directed=False, weighted = False) -> defaultdict:
+def graph_input(inp, directed=False, weighted = False, node_type = int) -> defaultdict:
     directed = bool(directed)
     weighted = bool(weighted)
     
@@ -126,7 +126,7 @@ def graph_input(inp, directed=False, weighted = False) -> defaultdict:
     for line in inp.split("\n"):
         if not line: continue
         
-        v = map(int, line.split(" "))
+        v = map(node_type, line.split(" "))
         if weighted: a, b, w = v
         else: a, b = v
 
