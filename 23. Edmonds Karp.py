@@ -2,6 +2,7 @@
 '''
 1. memory can be reduced: by avoiding `capacity matrix`. 
 - use weigght system. maynot be possible actually. even if i want to caltulat residual capacity one the go i need the base capacity
+2. for now no need of recidual edge
 
 # learnoing 
 - we use `weight matrix` when we need both direct and reverse edge
@@ -59,7 +60,7 @@ def max_flow(s, t):
         while cur!=s:
             prev = parent[cur]
             capacity[prev][cur] -= new_flow# direct edge
-            capacity[cur][prev] +=new_flow# reverse edge
+            # capacity[cur][prev] +=new_flow# reverse edge
             cur = prev
 
     return flow
@@ -74,7 +75,7 @@ for line in inp.split("\n"):
     w = int(w)
     adj[u].append(v)
     capacity[u][v] = w
-    capacity[v][u] = -w
+    # capacity[v][u] = -w
 
 #%%
 print(max_flow("s", "t"))
