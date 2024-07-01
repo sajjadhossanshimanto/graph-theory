@@ -133,13 +133,13 @@ def graph_input(inp, directed=False, weighted = False) -> defaultdict:
         graph_list[a].append((b, w) if weighted else b)
         if not directed:
             graph_list[b].append((a, w) if weighted else a)
-        
-        if (b, a) in G.edges() and directed:# reverse of current edge(a, b)
-            curved_edge_labels[(a, b)] = w
-        else:
-            straight_edge_labels[(a, b)] = w
 
-        if weighted: G.add_edge(a,b, weight=w)
+        if weighted:        
+            if (b, a) in G.edges() and directed:# reverse of current edge(a, b)
+                curved_edge_labels[(a, b)] = w
+            else:
+                straight_edge_labels[(a, b)] = w
+            G.add_edge(a,b, weight=w)
         else: G.add_edge(a,b)
 
     return graph_list
