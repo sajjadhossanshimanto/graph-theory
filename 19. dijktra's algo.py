@@ -1,5 +1,6 @@
 #%%
 from store_graph import graph_input, draw_graph
+from heapq import heappop, heappush
 
 
 n = 6
@@ -22,17 +23,20 @@ draw_graph(weighted=True, seed=5756)
 sssp = [float("inf")]*(n+1)
 
 def dijksta(node):
-    sortest = (node, float('inf'))
-    for child, w in adj[node]:
-        nd = sssp[node]+w
-        if nd<=sssp[child]:
+    sssp[node]=0# make sure starting node has dis 0
+
+    pq = []
+    heappush(pq, (0, node))
+    while pq:
+        dis, node = heappop(pq)
+        # if node in visit: continue# a node might get visited multiple time
+        if dis>sssp[node]: continue
+        for child, w in adj[node]:
+            nd = dis+w
+            if nd>sssp[child]: continue
             sssp[child] = nd
-            if sssp[child]<sortest[1]:
-                sortest =(child, sssp[child])
+            heappush(pq, (nd, child))
+    return
 
-    if sortest[0]==node: return
-    dijksta(sortest[0])
-
-sssp[1]=0# make sure starting node has dis 0
 dijksta(1)
 # %%
